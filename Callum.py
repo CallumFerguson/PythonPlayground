@@ -1,28 +1,29 @@
 
 
+#determine if a box with width and height at a specific x is valid
+def checkBox(x, width, height, array):
+    for i in array[x : x + width]:
+        if i < height:
+            return False
+    return True
 
-b = 5
+#finds the largest box at any x with a specific width in an array
+def largestBoxWithWidth(width, array):
+    largestFoundBox = 0
+    for height in range(0, max(array) + 1):
+        for i in range(0, len(array) - width + 1):
+            if checkBox(i, width, height, array):
+                if width * height > largestFoundBox:
+                    largestFoundBox = width * height
+    return largestFoundBox
 
-c = 5.1
+#finds the largest box at any x and with any width or height in an array
+def largestBox(array):
+    largestFoundBox = 0
+    for i in range(1, len(array)):
+        if largestBoxWithWidth(i, array) > largestFoundBox:
+            largestFoundBox = largestBoxWithWidth(i, array)
+    return largestFoundBox
 
-b = c * 4
 
-d = False
-
-mylist = ['ths is a symbole: " <--', "test", 5]
-
-for i in range(2):
-    print('yolo')
-
-def iteration(input):
-    return (4 * (input**2)) / (4 * (input**2) - 1)
-
-pi = 1
-
-for i in range(1, 10000):
-    pi = pi * iteration(i)
-
-pi = pi * 2
-
-print(pi)
-
+print(largestBox([2, 1, 5, 6, 2, 3]))
